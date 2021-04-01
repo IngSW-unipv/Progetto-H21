@@ -1,1 +1,1 @@
-# Progetto-H21
+# Sistema per la configurazione di computer
