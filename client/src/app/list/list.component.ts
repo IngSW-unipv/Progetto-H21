@@ -145,7 +145,7 @@ export class ListComponent implements OnInit, OnDestroy {
    * @author Filippo Casarosa
    */
   openSnackBar(){
-    this._snackBar.open('Potenzia erogata non sufficente', 'ok', {
+    this._snackBar.open('Potenza erogata non sufficiente', 'ok', {
       horizontalPosition: this.horizontalPosition,
       verticalPosition: this.verticalPosition,
     });
