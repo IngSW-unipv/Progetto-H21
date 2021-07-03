@@ -1,0 +1,52 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" class="sidenav" fixedInViewport="false" [opened]="true">
+    <mat-nav-list>
+
+      <!-- filtro Prezzo -->
+      <h2 style="text-align: center;">Filtri Preassemblati</h2>
+      <div class="priceslider">
+        <h3 style="font-weight: bold; text-align: left;">Prezzo:</h3>
+        <mat-slider
+          thumbLabel
+          tickInterval="500"
+          step="200"
+          min="0"
+          max="5000"
+          aria-label="units">
+        </mat-slider>
+      </div>
+
+      <!-- filtro Utilizzo -->
+      <h3 style="font-weight: bold;">Utilizzo:</h3>
+      <section class="section">
+        <span class="list-section">
+          <mat-checkbox class="margin"
+                        [checked]="allComplete"
+                        [color]="task.color"
+                        [indeterminate]="someComplete()"
+                        (change)="setAll($event.checked)">
+            {{task.name}}
+          </mat-checkbox>
+        </span>
+        <span class="list-section">
+          <ul>
+            <li *ngFor="let subtask of task.subtasks">
+              <mat-checkbox [(ngModel)]="subtask.completed"
+                            [color]="subtask.color"
+                            (ngModelChange)="updateAllComplete()">
+                {{subtask.name}}
+              </mat-checkbox>
+            </li>
+          </ul>
+        </span>
+      </section>
+
+    </mat-nav-list>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="content">
+    <app-prebuilts-list></app-prebuilts-list>
+    <!-- <router-outlet></router-outlet> -->
+  </mat-sidenav-content>
+
+</mat-sidenav-container>

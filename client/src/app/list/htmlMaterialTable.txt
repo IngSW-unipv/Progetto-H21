@@ -1,0 +1,65 @@
+<table mat-table [dataSource]="dataSourceComponentType" class="mat-elevation-z8">
+
+  <!-- Tipologia componente -->
+  <ng-container matColumnDef="componentType">
+    <th mat-header-cell *matHeaderCellDef> Tipologia </th>
+    <td mat-cell *matCellDef="let componentType"> {{componentType.name}} </td>
+    <td mat-footer-cell *matFooterCellDef style="font-weight: bold;"> Totale </td>
+  </ng-container>
+
+
+
+  <!-- Bottoni per aggiunta, eliminazione componenti e conferma ordine -->
+  <ng-container matColumnDef="buttons">
+    <th mat-header-cell *matHeaderCellDef> Aggiungi/Elimina </th>
+    <ng-container *matCellDef="let choice">
+      <td mat-cell>
+        <button mat-raised-button
+        color="primary"
+        [routerLink]="['components-by-type', choice.id]"
+        >Aggiungi</button> </td>
+    </ng-container>
+
+    <td mat-footer-cell *matFooterCellDef>
+      <button mat-raised-button
+      color="accent"
+      >Procedi all'ordine</button>
+      <button mat-raised-button
+      color="primary"
+      >Finisci per me</button>
+    </td>
+  </ng-container>
+
+  <!-- Righe -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+</table>
+
+<table mat-table [dataSource]="dataSourcePcComponent" class="mat-elevation-z8">
+
+  <!-- Nome componente -->
+  <ng-container matColumnDef="name">
+    <th mat-header-cell *matHeaderCellDef> Nome </th>
+    <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+    <td mat-footer-cell *matFooterCellDef>
+      <button mat-raised-button
+      color="primary"
+      >Finisci per me</button>
+    </td>
+  </ng-container>
+
+  <!-- Prezzo componente -->
+  <ng-container matColumnDef="price">
+    <th mat-header-cell *matHeaderCellDef> Prezzo </th>
+    <td mat-cell *matCellDef="let product"> {{product.price}} $</td>
+    <td mat-footer-cell *matFooterCellDef style="font-weight: bold;"></td>
+  </ng-container>
+
+  <!-- Righe -->
+  <tr mat-header-row *matHeaderRowDef="displayedColumns2"></tr>
+  <tr mat-row *matRowDef="let row; columns: displayedColumns2;"></tr>
+  <tr mat-footer-row *matFooterRowDef="displayedColumns2"></tr>
+
+</table>

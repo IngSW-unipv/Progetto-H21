@@ -1,0 +1,68 @@
+<form class="form" (ngSubmit)="onAddPrebuilt()" #f="ngForm">
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput
+      ngModel
+      name="name">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Utilizzo</mat-label>
+    <input matInput
+    ngModel
+    name="use">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Prezzo</mat-label>
+    <input matInput
+      ngModel
+      name="price">
+  </mat-form-field>
+
+  <table mat-table [dataSource]="dataSource" class="mat-elevation-z8">
+
+    <!-- Tipologia componente -->
+    <ng-container matColumnDef="componentType">
+      <th mat-header-cell *matHeaderCellDef> </th>
+      <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+    </ng-container>
+
+    <!-- Nome componente -->
+    <ng-container matColumnDef="componentId">
+      <th mat-header-cell *matHeaderCellDef> Id Componente </th>
+      <td mat-cell *matCellDef="let element">
+        <mat-form-field appearance="fill">
+          <input matInput
+            ngModel
+            name="componentId">
+        </mat-form-field>
+      </td>
+    </ng-container>
+
+    <ng-container matColumnDef="button">
+      <th mat-header-cell *matHeaderCellDef> Aggiungi Componente </th>
+      <td mat-cell *matCellDef="let element">
+          <button
+          mat-raised-button
+          color="primary"
+          type="button"
+          (click)="onAddComponentToPrebuilt()"
+          >Aggiungi
+      </button>
+      </td>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+  </table>
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    >Aggiungi Prebuilt
+  </button>
+</form>
+

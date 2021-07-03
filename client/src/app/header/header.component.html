@@ -1,0 +1,38 @@
+<mat-toolbar color="primary" class="header" fxLayout='row' fxLayoutAlign="space-between center">
+  <h1>H21Project</h1>
+  <!-- [matMenuTriggerFor]="" removed from below -->
+  <button
+    mat-button
+    routerLink="/auth"
+    routerLinkActive="active"
+    *ngIf="!isAuthenticated"
+    >Accedi
+  </button>
+
+  <button
+    mat-button
+    routerLink="/auth"
+    routerLinkActive="active"
+    *ngIf="isAuthenticated"
+    (click)="onLogout()"
+    >Logout
+  </button>
+</mat-toolbar>
+
+<nav mat-tab-nav-bar class="toolbar">
+  <a mat-tab-link
+    routerLink="/list"
+    routerLinkActive="active"
+    *ngIf="!isAuthenticated"
+  > Assembla il tuo PC </a>
+  <a mat-tab-link
+    routerLink="/prebuilts"
+    routerLinkActive="active"
+    *ngIf="!isAuthenticated"
+  > PC pre-assemblati </a>
+  <a mat-tab-link
+    routerLink="/products"
+    routerLinkActive="active"
+    *ngIf="isAuthenticated"
+  > Prodotti </a>
+</nav>

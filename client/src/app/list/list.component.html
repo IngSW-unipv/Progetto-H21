@@ -1,0 +1,67 @@
+<mat-sidenav-container>
+  <mat-sidenav mode="side" class="sidenav" fixedInViewport="false" [opened]="true">
+    <mat-nav-list>
+      <ng-container *ngFor="let componentType of loadedComponentTypes">
+        <h3 style="margin-left: 5px;"><b>{{componentType.name}}</b></h3>
+        <button mat-raised-button
+          color="primary"
+          [routerLink]="['components-by-type', componentType.id]"
+          *ngIf="componentType.active"
+          >Aggiungi
+        </button>
+        <button mat-raised-button
+          color="accent"
+          (click)="completeConfiguration()"
+          *ngIf="componentType.active"
+          >Finisci per me
+        </button>
+      </ng-container>
+    </mat-nav-list>
+  </mat-sidenav>
+  <!-- Contenuto della pagina -->
+  <mat-sidenav-content class="content">
+    <h1 style="color: brown;">Componenti Selezionati:</h1>
+    <div class="alert alert-warning" role="alert" style="width: 80vh; margin: 15px;">
+      <h3><b>Potenza della configurazione: </b>{{ totalPower }}</h3>
+    </div>
+    <table>
+      <ng-container *ngFor="let pcComponent of pcComponents">
+        <tr>
+          <td>
+            <h2>{{pcComponent.componentFamily.type.name}}</h2>
+          </td>
+          <td>
+            <h2>{{pcComponent.name}}</h2>
+          </td>
+          <td>
+            <h2>{{pcComponent.price}} $</h2>
+          </td>
+        </tr>
+      </ng-container>
+      <tfoot>
+        <tr>
+          <td>
+            <h2><b>Costo Totale</b></h2>
+          </td>
+          <td>
+            <h2>{{ totalPrice }} $</h2>
+          </td>
+        </tr>
+        </tfoot>
+      <button mat-raised-button
+        color="primary"
+        (click)="confirmConfig()"
+        *ngIf="enableCompleteButton"
+        >Conferma Configurazione
+      </button>
+    </table>
+  </mat-sidenav-content>
+</mat-sidenav-container>
+
+<!-- Template di errore -->
+<p *ngIf="isFetching && !error">Loading...</p>
+<div class="alert alert-danger" *ngIf="error">
+  <h1>An Error Occured</h1>
+  <p>{{ error }}</p>
+  <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+</div>

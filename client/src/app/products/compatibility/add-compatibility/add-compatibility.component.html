@@ -1,0 +1,25 @@
+<form class="form" (ngSubmit)="onAddCompatibility()" #f="ngForm">
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Id Famiglia 1</mat-label>
+    <input matInput
+    ngModel
+      name="id1">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Id Famiglia 2</mat-label>
+    <input
+      matInput
+      ngModel
+      name="id2">
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    >Aggiungi
+  </button>
+</form>
+

@@ -1,0 +1,81 @@
+<mat-form-field>
+  <mat-label>Cerca Prodotto per nome</mat-label>
+  <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+</mat-form-field>
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+    <!-- Id Column -->
+    <!-- <ng-container matColumnDef="id">
+      <th mat-header-cell *matHeaderCellDef> ID </th>
+      <td mat-cell *matCellDef="let product"> {{product.id}} </td>
+    </ng-container> -->
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Nome </th>
+      <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+      <tr mat-footer-cell *matFooterCellDef>
+        <button mat-raised-button
+        color="primary"
+        style="margin: 5px;"
+        [routerLink]="['/add-pc-component']"
+        >Aggiungi</button>
+      </tr>
+    </ng-container>
+
+    <!-- Price Column -->
+    <ng-container matColumnDef="price">
+      <th mat-header-cell *matHeaderCellDef> Prezzo </th>
+      <td mat-cell *matCellDef="let product"> {{product.price}} $</td>
+      <tr mat-footer-cell *matFooterCellDef></tr>
+    </ng-container>
+
+    <!-- componentTypeName Column -->
+    <!-- <ng-container matColumnDef="componentTypeName">
+      <th mat-header-cell *matHeaderCellDef> Tipo Componente </th>
+      <td mat-cell *matCellDef="let product"> {{product.componentTypeName}} </td>
+      <tr mat-footer-cell *matFooterCellDef></tr>
+    </ng-container> -->
+
+
+    <!-- Family Column -->
+    <ng-container matColumnDef="family">
+      <th mat-header-cell *matHeaderCellDef> Famiglia </th>
+      <td mat-cell *matCellDef="let product"> {{product.componentFamily.name}} </td>
+      <tr mat-footer-cell *matFooterCellDef></tr>
+    </ng-container>
+
+    <!-- edit product button Column -->
+    <ng-container matColumnDef="actions">
+      <th mat-header-cell *matHeaderCellDef></th>
+      <td mat-cell *matCellDef="let product" >
+        <button
+          mat-fab color="accent"
+          style="margin: 5px;"
+          [routerLink]="['/edit-pc-component', product.id]"
+          ><mat-icon>more_vert</mat-icon>
+        </button>
+        <button
+          mat-fab color="warn"
+          (click)="deletePcComponent(product.id)"
+          style="margin-right: 15px;"
+          ><mat-icon>delete</mat-icon>
+        </button>
+      </td>
+      <tr mat-footer-cell *matFooterCellDef></tr>
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    <tr mat-footer-row *matFooterRowDef="displayedColumns"></tr>
+
+    <!-- Row shown when there is no matching data. -->
+    <tr class="mat-row" *matNoDataRow>
+      <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+    </tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[10, 20, 50]" showFirstLastButtons></mat-paginator>
+</div>

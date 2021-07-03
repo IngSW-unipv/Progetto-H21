@@ -1,0 +1,35 @@
+<form class="form" (ngSubmit)="onUpdateCompatibility()" #f="ngForm">
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Id Famiglia 1</mat-label>
+    <input matInput
+      [(ngModel)]="loadedCompatibility.componentFamily1.id"
+      name="id1">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Nome Famiglia 2</mat-label>
+    <input matInput value={{loadedCompatibility.componentFamily1.name}} disabled>
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Id Famiglia 2</mat-label>
+    <input
+      matInput
+      [(ngModel)]="loadedCompatibility.componentFamily2.id"
+      name="id2">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Nome Famiglia 2</mat-label>
+    <input matInput value={{loadedCompatibility.componentFamily2.name}} disabled>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    >Modifica
+  </button>
+</form>
+

@@ -1,0 +1,45 @@
+<form class="form" (ngSubmit)="onUpdateComponent()" #f="ngForm">
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput
+      [(ngModel)]="loadedPcComponent.name"
+      name="name">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Prezzo</mat-label>
+    <input matInput
+    [(ngModel)]="loadedPcComponent.price"
+    name="price">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Potenza Utilizzata</mat-label>
+    <input matInput
+      [(ngModel)]="loadedPcComponent.power"
+      name="power">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Famiglia Id</mat-label>
+    <input
+      matInput
+      [(ngModel)]="loadedPcComponent.componentFamily.id"
+      name="familyId">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Famiglia Nome</mat-label>
+    <input matInput value={{loadedPcComponent.componentFamily.name}} disabled>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    >Modifica
+  </button>
+</form>
+
+

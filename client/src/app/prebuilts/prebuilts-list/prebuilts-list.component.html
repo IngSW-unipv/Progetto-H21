@@ -1,0 +1,36 @@
+<!-- Caso in cui non ci sono preassemblati disponibili -->
+<p *ngIf="loadedPrebuilts.length < 1 && !isFetching">No Prebuilts available!</p>
+
+<!-- Caso in cui ci sono preassemblati disponibili -->
+<div *ngIf="loadedPrebuilts.length >= 1">
+  <!-- Vengono generate delle card che mostrano nome, prezzo, uso e descrizione del PC -->
+  <mat-card class="card" *ngFor="let prebuilt of loadedPrebuilts">
+    <mat-card-header>
+      <div mat-card-avatar class="header-image"></div>
+      <mat-card-title> {{ prebuilt.name }} </mat-card-title>
+      <mat-card-subtitle>Prezzo: {{ prebuilt.price }}$</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <img mat-card-image [src]="prebuilt.imagePath" [alt]="prebuilt.name" class="image">
+      <p>Utilizzo: {{ prebuilt.use }}</p>
+      <br>
+      <p>Descrizione: {{ prebuilt.description }}</p>
+    </mat-card-content>
+    <!-- Bottone per acquisto PC -->
+    <mat-card-actions>
+      <button mat-raised-button
+        color="primary"
+        (click)="onPrebuiltSelected()"
+      >seleziona</button>
+    </mat-card-actions>
+  </mat-card>
+
+  <!-- Template di errore -->
+  <p *ngIf="isFetching && !error">Loading...</p>
+  <div class="alert alert-danger" *ngIf="error">
+    <h1>An Error Occured</h1>
+    <p>{{ error }}</p>
+    <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+  </div>
+</div>
+

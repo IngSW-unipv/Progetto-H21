@@ -1,0 +1,24 @@
+<form class="form" (ngSubmit)="onAddFamily()" #f="ngForm">
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput
+      ngModel
+      name="name">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Tipo Id</mat-label>
+    <input
+      matInput
+      ngModel
+      name="typeId">
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    >Aggiungi
+  </button>
+</form>

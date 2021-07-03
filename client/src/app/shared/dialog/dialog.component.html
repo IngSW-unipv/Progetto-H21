@@ -1,0 +1,14 @@
+<!-- Dialog box mostrato quando si seleziona un prebuilt -->
+<h2 mat-dialog-title>Sembra che tu abbia trovato un computer che ti piace</h2>
+<div mat-dialog-content>
+  <p>Vuoi proseguire?</p>
+</div>
+<!-- Bottoni per la scelta -->
+<div mat-dialog-actions>
+  <button mat-button (click)="onNoClick()">Torna indietro</button>
+  <button mat-button cdkFocusInitial (click)="onOkClick()">Certo</button>
+  <!-- Mostrato solo se si preme "Certo" -->
+  <p *ngIf="prebuiltSelected">Hai confermato la scelta. Congratulazioni!</p>
+</div>
+
+

@@ -1,0 +1,54 @@
+<!-- Filtro per ricerca componenti -->
+<div class="content">
+  <mat-form-field style="margin: 5px;">
+    <mat-label>Cerca Prodotto per nome</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Ex. ium" #input>
+  </mat-form-field>
+
+  <div class="mat-elevation-z8" >
+    <table mat-table [dataSource]="dataSource" >
+      <div fxLayout="row" fxLayoutAlign="space-around center" >
+
+        <!-- Nome del componente -->
+        <ng-container matColumnDef="name" >
+          <th mat-header-cell *matHeaderCellDef> Nome </th>
+          <td mat-cell *matCellDef="let product"> {{product.name}} </td>
+        </ng-container>
+
+        <!-- Prezzo -->
+        <ng-container matColumnDef="price">
+          <th mat-header-cell *matHeaderCellDef> Prezzo </th>
+          <td mat-cell *matCellDef="let product"> {{product.price}} $</td>
+        </ng-container>
+
+        <!-- Famiglia -->
+        <ng-container matColumnDef="family">
+          <th mat-header-cell *matHeaderCellDef> Famiglia </th>
+          <td mat-cell *matCellDef="let product"> {{product.componentFamily.name}} </td>
+        </ng-container>
+
+        <!-- Bottoni per aggiunta -->
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef></th>
+          <td mat-cell *matCellDef="let product">
+            <button
+              mat-fab color="primary"
+              (click)="addPcComponent(product)"
+              style="margin: 5px;"
+              ><mat-icon>plus_one</mat-icon>
+            </button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+        <!-- Riga mostrata per quando non ci sono elementi corrispondenti ai filtri applicati -->
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+        </tr>
+      </div>
+    </table>
+  </div>
+</div>
+

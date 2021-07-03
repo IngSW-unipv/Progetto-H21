@@ -1,0 +1,29 @@
+<form class="form" (ngSubmit)="onUpdateFamily()" #f="ngForm">
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Nome</mat-label>
+    <input matInput
+      [(ngModel)]="loadedFamily.name"
+      name="name">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Tipo Id</mat-label>
+    <input
+      matInput
+      [(ngModel)]="loadedFamily.type.id"
+      name="typeId">
+  </mat-form-field>
+
+  <mat-form-field class="full-width" appearance="fill">
+    <mat-label>Tipo Nome</mat-label>
+    <input matInput value={{loadedFamily.type.name}} disabled>
+  </mat-form-field>
+
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    >Modifica
+  </button>
+</form>

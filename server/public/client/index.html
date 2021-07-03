@@ -1,0 +1,101 @@
+<html>
+
+   <head>
+      <title>Login page</title>
+      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/js/bootstrap.min.js"></script>      
+      <script type="module" src="data.js"></script>
+      <script type="module" src="inserter.js"></script>
+      <script type="module" src="creator.js"></script>
+      <script type="module" src="index.js"></script>      
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.1/dist/css/bootstrap.min.css" />
+      <link rel="stylesheet" href="style.css" />
+
+   </head>
+
+   <body>
+
+      <ul class="nav">
+         <li class="nav-item">
+            <a id="insertLink" class="nav-link active" aria-current="page" href="#">Insert</a>
+         </li>
+         <li class="nav-item">
+            <a id="createLink" class="nav-link" href="#">Create</a>
+         </li>
+      </ul>
+
+      <div id="insertPage" class="container myContainer">
+         <button id="buttonStart" type="button" class="btn btn-primary">Insert all</button>
+
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Component Type name</th>
+               </tr>
+            </thead>
+            <tbody id="componentTypeBody">
+            </tbody>
+         </table>
+
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Component Family Name</th>
+                  <th scope="col">Component Type Name</th>
+               </tr>
+            </thead>
+            <tbody id="componentFamiliesBody">
+            </tbody>
+         </table>
+
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Component name</th>
+                  <th scope="col">Component Family Name</th>
+                  <th scope="col">Component Type Name</th>
+               </tr>
+            </thead>
+            <tbody id="componentsBody">
+            </tbody>
+         </table>
+
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Component Family 1 Name</th>
+                  <th scope="col">Component Family 2 Name</th>
+               </tr>
+            </thead>
+            <tbody id="compatibilityConstraintsBody">
+            </tbody>
+         </table>
+
+      </div>
+
+      <div id="createPage" class="container myContainer">
+         <button id="buttonCreate" type="button" class="btn btn-primary">Create at random</button>
+
+
+         <table class="table">
+            <thead>
+               <tr>
+                  <th scope="col">#</th>
+                  <th scope="col">Component Name</th>
+                  <th scope="col">Component Type</th>
+                  <th scope="col">Power Supply</th>
+                  <th scope="col">Price</th>
+               </tr>
+            </thead>
+            <tbody id="setupBody">
+            </tbody>
+         </table>
+
+      </div>
+
+      </head>
+
+</html>
