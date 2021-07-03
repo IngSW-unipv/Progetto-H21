@@ -1,4 +1,6 @@
-use H21;
+-- author : Filippo Rognoni
+
+use simpleapi;
 
 -- POPOLAMENTO TABELLA COMPONENT_TYPE
 
