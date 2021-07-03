@@ -17,14 +17,14 @@ public class ComponentTest {
         Component component = new Component();
         component.setId(0);
         component.setName("African Motherboard Paolina");
-        component.setPowerSupply(75.6f);
+        component.setPower(75.6f);
         component.setPrice(4530.89f);
         ComponentFamily family = new ComponentFamily();
         component.setComponentFamily(family);
 
         assertEquals(0, component.getId());
         assertEquals("African Motherboard Paolina", component.getName());
-        assertEquals(75.6f, component.getPowerSupply());
+        assertEquals(75.6f, component.getPower());
         assertEquals(4530.89f, component.getPrice());
         assertEquals(family, component.getComponentFamily());
     }
