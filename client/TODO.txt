@@ -1,0 +1,54 @@
+Task da fare:
+
+2) come gestire l'upload del setup prebuilt
+
+    2.1) aggiungere un pulsante nel componente che gestisce la configurazione (list.component) che permette di salvare la configurazione.
+        Il pulsante sarà visibile con auth a true (aggiungere se serve metodo a auth.service)
+
+    2.2) Per gestire l'upload della configurazione come nuovo prebuilt occorrono:
+        - un service (prebuilt.service)
+        - un componente (prebuilt.component)
+
+    2.3) il componente (che sarà sotto una nuova rotta es. "/saveNewPrebuilt") recupererà la configurazione direttamente dal list.service
+
+    2.4) il componente mostrerà una form con:
+        - un input text 
+        - un img upload 
+        - un pulsante submit
+
+        Alla pressione del submit, il componente eseguirà il metodo save del prebuilt.service, a cui si sottoscriverà (è un observable)
+
+    2.5) il service col metodo save riceve come parametri:
+        - l'image (oggetto di tipo Image)
+        - il nome (oggetto di tipo String)
+        - il prezzo
+
+        Il metodo save recupererà la lista dei componenti dal list.service, e costruirà un nuovo oggetto DTO "setup" con il setup fatto nel modo seguente:
+            {
+                name: {name scelto nella form},
+                imagePathUrl: {per ora vuoto},
+                price: {}
+                list: [lista componenti id]
+            }
+
+    2.6) occorre quindi eseguire due chiamate: una per l'upload dell'imagine (e ricevere la url dell'immagine) ed una per inviare l'effettivo DTO 
+    il codice sarà pressapoco così:
+
+        return http.post("url upload file", image).pipe(
+            tap((data) => console.log),
+            map((data) => return {
+                ...setup,
+                imagePathUrl: data.imagePath
+            },
+            switchMap((setup) => http.post("url upload prebuilt", setup)),
+            tap((data) => console.log)
+            )
+        )
+
+    2.7) il prebuilt.component fa la subscribe al metood save sopra indicato e darà un feedback all'utente
+
+3) Autocomplete
+
+    3.1 gestire una funzione ricorsiva nel list.service che automaticamente cerca i componenti compatibili e ne sceglie uno in base ad una regola
+
+    su questo fare riferimento all file creator.js presente nel server
