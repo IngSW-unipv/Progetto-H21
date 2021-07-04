@@ -28,7 +28,7 @@ Per eseguire il front end, è necessario installare il framework Angular. Seguir
 * Installare NPM Package Manager. Per verificare la versione digitare da terminale `npm -v`
 
   **NOTA: NPM Client viene installato insieme a Node.JS**
-* Entrare tramite terminale(Command prompt, NO powershell) di visula studio code nella cartella relativa al client: `cd Client`.
+* Entrare tramite terminale(Command prompt, NO powershell) di visual studio code nella cartella relativa al client: `cd Client`.
 * Digitare a terminale `npm install -g @angular/cli` per installare il node_module(all'interno ci sono le librerie relative al client). Per maggiori informazioni leggere il README del client.
 
 Una guida più completa è disponibile al seguente indirizzo web: `https://angular.io/guide/setup-local`.
