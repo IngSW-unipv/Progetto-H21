@@ -36,9 +36,8 @@ Una guida più completa è disponibile al seguente indirizzo web: `https://angul
 ## Esecuzione del codice
 * Avviare il server SQL
 * Avviare il codice server del back end presente nel main
-* Eseguire il comando `ng serve` per eseguire il front end
+* Eseguire il comando `ng serve` da terminale di visual studio code dopo aver verificato di essere nella cartella Client per eseguire il front end
 
-  **NOTA: Riferirsi al README del client per ulteriori informazioni**
 * Aprire la pagina web `localhost:4200`
 
 ## Note finali
