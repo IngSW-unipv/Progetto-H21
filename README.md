@@ -1,11 +1,11 @@
 # Sistema per la configurazione di computer
 ## Operazioni preliminari
 * Per la corretta esecuzione del progetto consigliamo l'utilizzo di **Visual Studio Code**.
-* Verificare inoltre di avere instllato correttamente la jdk (consigliata versione 11 o superiore).
+* Verificare inoltre di avere installato correttamente la jdk (consigliata versione 11 o superiore).
 * Per maggiori dettagli consultare il seguente link: `https://code.visualstudio.com/docs/java/java-tutorial`
 * Clonare il progetto dove si preferisce: `git clone https://github.com/IngSW-unipv/Progetto-H21.git`
 * Importare il progetto su visual studio code: `File -> Open Folder ->  YourPath/ProgettoH21`
-* In questo modo sarà presente sia il client che il server in una sola cartella.
+* In questo modo sarà presente sia il client che il server in una sola cartella chiamat Progetto-H21.
 
 ### Database
 * Installare **MariaDB** per la gestione del server SQL
@@ -19,9 +19,8 @@
   * porta di accesso
 * Lanciare il backend dal main per creare le tabelle, che verranno create da Hibernate alla prima esecuzione.
 * Successivamente, eseguire lo script su MariaDB per popolare le tabelle.
-* Eventualmente rilanciare il backend
 * Problemi comuni: 
-  * Se ci sono problemi relativi alla versione di java verificare nel pom.xml che la java.version coincida con la propria versione.
+  * Se ci sono warning relativi alla versione di java verificare nel pom.xml che la java.version coincida con la propria versione.
 
 ### Front End
 Per eseguire il front end, è necessario installare il framework Angular. Seguire le seguenti instruzioni per l'installazione:
