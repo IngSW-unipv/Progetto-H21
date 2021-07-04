@@ -3,13 +3,13 @@ Task da fare:
 2) come gestire l'upload del setup prebuilt
 
     2.1) aggiungere un pulsante nel componente che gestisce la configurazione (list.component) che permette di salvare la configurazione.
-        Il pulsante sarà visibile con auth a true (aggiungere se serve metodo a auth.service)
+        Il pulsante sarà visibile con auth a true (aggiungere se serve metodo a auth.service) (FATTO)
 
     2.2) Per gestire l'upload della configurazione come nuovo prebuilt occorrono:
         - un service (prebuilt.service)
-        - un componente (prebuilt.component)
+        - un componente (prebuilt.component) (FATTO)
 
-    2.3) il componente (che sarà sotto una nuova rotta es. "/saveNewPrebuilt") recupererà la configurazione direttamente dal list.service
+    2.3) il componente (che sarà sotto una nuova rotta es. "/addPrebuilt") recupererà la configurazione direttamente dal list.service (FATTO)
 
     2.4) il componente mostrerà una form con:
         - un input text 
@@ -28,6 +28,7 @@ Task da fare:
                 name: {name scelto nella form},
                 imagePathUrl: {per ora vuoto},
                 price: {}
+                use: {}
                 list: [lista componenti id]
             }
 
