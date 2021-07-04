@@ -17,7 +17,7 @@
   * nome utente
   * password
   * porta di accesso
-* Lanciare il backend dal main per creare le tabelle, che verranno create da Hibernate alla prima esecuzione.
+* Lanciare il backend dal main per creare le tabelle del DB, che verranno create da Hibernate alla prima esecuzione.
 * Successivamente, eseguire lo script su MariaDB per popolare le tabelle.
 * Problemi comuni: 
   * Se ci sono warning relativi alla versione di java verificare nel pom.xml che la java.version coincida con la propria versione.
