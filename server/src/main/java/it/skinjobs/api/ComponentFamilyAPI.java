@@ -80,7 +80,7 @@ public class ComponentFamilyAPI extends BaseAPI<ComponentFamily, ComponentFamily
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/componentFamily")
-    public ResponseEntity<ComponentFamily> newElement(@RequestHeader Map<String,String> headers, @PathVariable ComponentFamilyDTO componentFamilyDTO) {
+    public ResponseEntity<ComponentFamily> newElement(@RequestHeader Map<String,String> headers, @RequestBody ComponentFamilyDTO componentFamilyDTO) {
       return super.sessionOperation(headers, componentFamilyDTO, new Callable<>(){
          @Override
          public ResponseEntity<ComponentFamily> call(ComponentFamilyDTO componentFamilyDTO) {
