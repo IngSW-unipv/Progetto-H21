@@ -10,6 +10,7 @@ import it.skinjobs.model.Component;
 /**
  * @author Andrei Blindu
  * @author Filippo Casarosa
+ * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  */
 

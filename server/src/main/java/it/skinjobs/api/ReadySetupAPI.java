@@ -28,11 +28,14 @@ import it.skinjobs.repository.ReadySetups;
 import it.skinjobs.utils.Callable;
 
 /**
+ *
+ * @author Andrei Blindu
+ * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  *
- *         The REST controller transforms all the methods into web services and
- *         the classes into JSON object. The methods define calls to URLs via
- *         HTTP request(POST, GET, PUT, DELETE...)
+ * The REST controller transforms all the methods into web services and
+ * the classes into JSON object. The methods define calls to URLs via
+ * HTTP request(POST, GET, PUT, DELETE...)
  */
 @RestController
 public class ReadySetupAPI extends BaseAPI<ReadySetup, ReadySetupDTO, Integer> {

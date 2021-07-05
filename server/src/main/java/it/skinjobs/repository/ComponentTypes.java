@@ -8,6 +8,9 @@ import org.springframework.data.repository.CrudRepository;
 import it.skinjobs.model.ComponentType;
 
 /**
+ *
+ * @author Andrei Blindu
+ * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  */
 
