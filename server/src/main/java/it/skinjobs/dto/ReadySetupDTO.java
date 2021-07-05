@@ -3,9 +3,10 @@ package it.skinjobs.dto;
 import java.util.Set;
 
 /**
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
+ 
  * @author Jessica Vecchia
+ * @author Andrei Blindu
+ * @author Filippo Rognoni
  */
 
 /**

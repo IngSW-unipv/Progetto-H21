@@ -135,14 +135,14 @@ public class ReadySetupAPI extends BaseAPI<ReadySetup, ReadySetupDTO, Integer> {
                readySetup.setComponentList(componentList);
                readySetup.setUsage(readySetupDTO.getUsage()); // ** */
                readySetup.setImagePath(readySetupDTO.getImagePath()); // ** */
+               readySetup.setTotalPrice(readySetupDTO.getTotalPrice());
                return readySetups.save(readySetup);
-
             }).orElseGet(() -> null);
             if (result != null) {
                return new ResponseEntity<>(result, HttpStatus.OK);
+            } else {
+               return new ResponseEntity<>(result, HttpStatus.BAD_REQUEST);
             }
-
-            return new ResponseEntity<>(result, HttpStatus.NOT_FOUND);
          }
       });
 

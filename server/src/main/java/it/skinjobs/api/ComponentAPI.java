@@ -107,7 +107,7 @@ public class ComponentAPI extends BaseAPI<Component, ComponentDTO, Integer> {
                component.setComponentFamily(optionalFamily.get());
                return new ResponseEntity<>(components.save(component), HttpStatus.OK);
             } else {
-               return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+               return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
          }
       });
@@ -140,7 +140,7 @@ public class ComponentAPI extends BaseAPI<Component, ComponentDTO, Integer> {
                      return new ResponseEntity<>(components.save(component), HttpStatus.OK);
                   }).orElseGet(() -> null);
                } else {
-                  return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                  return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
                }
             }
          });

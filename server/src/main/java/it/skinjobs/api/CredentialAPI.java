@@ -32,6 +32,12 @@ public class CredentialAPI {
     @Autowired
     private Sessions sessions;
 
+    private Credential adminCredential;
+
+    public Credential getAdminCredential() {
+        return adminCredential;
+    }
+
     /**
      * @param credentials
      * @param credentialsProperties
@@ -45,7 +51,7 @@ public class CredentialAPI {
          Credential credential = new Credential();
          credential.setName(name);
          credential.setPassword(password);
-         credentials.save(credential);
+         this.adminCredential = credentials.save(credential);
        }
       } catch (Exception e) {
          System.out.println(e.getMessage());

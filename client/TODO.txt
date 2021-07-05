@@ -4,7 +4,3 @@ Bug da fixare:
   possibile problema .subscribe nel metoto Autoconfig di listService
 2- Autoconfig deve poter creare autoconfigurazioni fin dal primo pcComponent
   soluzione: aggiungere un if con condizione pcComponent is first
-
-possibile feature da aggiugere non necessaria seguendo i casi d'uso
-
-1- Detail Prebuilt da fare da 0

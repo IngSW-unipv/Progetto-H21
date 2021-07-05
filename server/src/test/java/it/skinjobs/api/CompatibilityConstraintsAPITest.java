@@ -99,7 +99,7 @@ public class CompatibilityConstraintsAPITest {
        Mockito.when(components.findComponentsByFamilyId(anyInt())).thenReturn(superList.get(i++));
 
        mockMvc.perform(MockMvcRequestBuilders
-         .get("/compatibilityConstraints/getByComponentId/1"))
+         .get("/compatibilityContraints/getByComponentId/1"))
          .andExpect(status().isOk());
 
    }

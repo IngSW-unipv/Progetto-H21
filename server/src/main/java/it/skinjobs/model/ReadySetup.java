@@ -11,8 +11,6 @@ import javax.persistence.ManyToMany;
 import java.util.Set;
 
 /**
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  */
 

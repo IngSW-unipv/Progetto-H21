@@ -1,9 +1,10 @@
 package it.skinjobs.dto;
 
 /**
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
+ 
  * @author Jessica Vecchia
+ * @author Andrei Blindu
+ * @author Filippo Rognoni
  */
 
 /**
