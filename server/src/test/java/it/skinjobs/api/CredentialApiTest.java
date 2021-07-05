@@ -109,22 +109,6 @@ public class CredentialApiTest {
             .andExpect(jsonPath("$.credential.name", is("admin")));
     }
 
-    @Test
-    public void testSessionIsValid() {
-
-        Session session = new Session();
-        session.setId(1);
-        session.setCredential(this.saved);
-        Date date = new Date();
-        session.setExpireDate(date);
-        session.setToken("123");
-        this.sessionList = new ArrayList<>();
-        this.sessionList.add(session);
-        Mockito.when(sessions.findByToken(anyString())).thenReturn(sessionList);
-        assertEquals(false, session.isExpired());
-        Mockito.when(credentialAPI.renewSession(session)).thenReturn(session);
-
-    }
 
     @Test
     public void testSessionIsNotValid() {

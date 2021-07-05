@@ -74,9 +74,9 @@ public class CompatibilityConstraintsAPI extends BaseAPI<CompatibilityConstraint
          for (ComponentFamily compatibleFamily : compatibleFamilies) {
             result.addAll(components.findComponentsByFamilyId(compatibleFamily.getId()));            
          }
-         return result;  //return new ResponseEntity ok
+         return result;  
       } else {
-         return new ArrayList<>();  //return responseEntity NOT_FOUND
+         return new ArrayList<>();  
       }
    }
 
@@ -103,7 +103,7 @@ public class CompatibilityConstraintsAPI extends BaseAPI<CompatibilityConstraint
    @GetMapping("/compatibilityConstraints/{index}")
    public ResponseEntity<CompatibilityConstraint> getById(@PathVariable Integer index) {
       Optional<CompatibilityConstraint> result = this.compatibilityConstraints.findById(index);
-      return new ResponseEntity<>(result.get(), HttpStatus.OK);
+         return new ResponseEntity<>(result.get(), HttpStatus.OK);
    }
 
    /**

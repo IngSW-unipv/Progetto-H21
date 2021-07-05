@@ -8,7 +8,6 @@ import org.springframework.http.ResponseEntity;
 import it.skinjobs.utils.Callable;
 
 /**
- *
  * @param <T>
  * @param <U>
  * @param <I>
