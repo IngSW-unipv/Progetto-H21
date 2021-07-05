@@ -36,7 +36,10 @@ Una guida più completa è disponibile al seguente indirizzo web: `https://angul
 ## Esecuzione del codice
 * Avviare il server SQL
 * Avviare il codice server del back end presente nel main
-* Per eseguire il front end, eseguire il comando `ng serve` dal terminale di visual studio code dopo aver verificato di essere nella cartella Client 
+* Per eseguire il front end, eseguire il comando `ng serve` dal terminale di visual studio code dopo aver verificato di essere nella cartella Client
+
+## Test d'integrazione
+Si consiglia di creare una variabile d'ambiente in PostMan chiamata "token" e che abbia come valore il token prodotto dall'API di login.
 
 * Aprire la pagina web `localhost:4200`
 
