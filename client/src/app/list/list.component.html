@@ -54,6 +54,13 @@
         *ngIf="enableCompleteButton"
         >Conferma Configurazione
       </button>
+      <button
+      mat-raised-button
+      color="accent"
+      *ngIf="isAuthenticated && enableCompleteButton"
+      routerLink="/add-prebuilt"
+      >Salva
+    </button>
     </table>
   </mat-sidenav-content>
 </mat-sidenav-container>

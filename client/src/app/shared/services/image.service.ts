@@ -1,7 +1,7 @@
 import { HttpClient } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of, Subject } from "rxjs";
-import { catchError, tap } from "rxjs/operators";
+import { catchError, map, tap } from "rxjs/operators";
 import { Image } from "../models/image.model";
 import { MessageService } from "./message.service";
 
@@ -10,7 +10,7 @@ import { MessageService } from "./message.service";
  * @author Andrei Blindu
  */
 @Injectable({providedIn:'root'})
-export class PcComponentsService {
+export class ImageService {
   imagesChanged = new Subject<Image[]>();
   error = new Subject<string>();
   private uploadUrl: string = 'http://localhost:8080/uploadFile';
@@ -19,10 +19,13 @@ export class PcComponentsService {
   constructor(private http: HttpClient,
               private messageService: MessageService) {}
 
-  addImage(image: Image): Observable<Image> {
-    return this.http.post<Image>(this.uploadUrl, image).pipe(
-      tap((newImage: Image) => this.log(`added image w/ file Name=${newImage.fileName}`)),
-      catchError(this.handleError<Image>('addImage'))
+  addImage(image: any): Observable<string> {
+    let formData = new FormData();
+    formData.append('file', image);
+    return this.http.post<Image>(this.uploadUrl, formData).pipe(
+      tap((uploadFileResponse) => this.log(`added image w/ url Name=${uploadFileResponse.fileDownloadUri}`)),
+      map((uploadFileResponse) => uploadFileResponse.fileDownloadUri),
+      catchError(this.handleError<string>('addImage'))
     );
   }
 

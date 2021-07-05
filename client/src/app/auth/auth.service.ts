@@ -9,6 +9,7 @@ import { Credential } from "./credential.model";
 
 /**
  * @author Filippo Casarosa
+ * @author Andrei Blindu
  */
 // nomi del backend
 export interface AuthResponseData {
@@ -44,7 +45,8 @@ export class AuthService{
           resData.token,
           resData.expireDate
         );
-      })
+      }),
+      tap((data) => console.log('token: ' + data.token))
     );
   }
 
@@ -75,13 +77,18 @@ export class AuthService{
   }
 
   logout(){
-    this.admin.next(null);
-    this.router.navigate(['/auth']);
-    localStorage.removeItem('adminData');
-    if (this.tokenExpirationTimer) {
-      clearTimeout(this.tokenExpirationTimer);
-    }
-    this.tokenExpirationTimer = null;
+    const url = `http://localhost:8080/logout`
+    return this.http.get<boolean>(url).subscribe(_ => {
+      this.admin.next(null);
+      this.router.navigate(['/auth']);
+      localStorage.removeItem('adminData');
+      if (this.tokenExpirationTimer) {
+        clearTimeout(this.tokenExpirationTimer);
+      }
+      this.tokenExpirationTimer = null;
+    });
+
+
   }
 
   autoLogout(expirationDuration: number) {
@@ -127,4 +134,7 @@ export class AuthService{
     return throwError(errorMessage);
   }
 
+  private log(message: string) {
+    this.messageService.add(`Auth: ${message}`);
+  }
 }

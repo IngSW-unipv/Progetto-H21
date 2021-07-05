@@ -13,7 +13,7 @@ import { AuthService } from '../auth/auth.service';
 })
 export class HeaderComponent implements OnInit, OnDestroy {
   private adminSub: Subscription;
-  isAuthenticated: boolean = false;;
+  isAuthenticated: boolean = false;
 
   constructor(private router: Router,
               private authService: AuthService) { }

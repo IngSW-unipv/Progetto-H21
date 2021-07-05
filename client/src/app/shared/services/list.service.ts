@@ -1,19 +1,21 @@
 import { Injectable } from '@angular/core';
 import { Observable, of, Subject } from 'rxjs';
 import { tap } from 'rxjs/operators';
-import { ComponentType } from '../shared/models/component-type.model';
-import { PcComponents } from '../shared/models/pc-components-model';
-import { CompatibilityService } from '../shared/services/compatibility.service';
-import { ComponentTypeService } from '../shared/services/component-type.service';
-import { PcComponentsService } from '../shared/services/pc-components.service';
+import { ComponentType } from '../models/component-type.model';
+import { PcComponents } from '../models/pc-components-model';
+import { CompatibilityService } from './compatibility.service';
+import { ComponentTypeService } from './component-type.service';
+import { PcComponentsService } from './pc-components.service';
 
 /**
  * @author Filippo Casarosa
+ * @author Andrei Casarosa
  */
 @Injectable({ providedIn: 'root' })
 export class ListService {
   private list: PcComponents[];
   private componentTypeList: ComponentType[];
+  private filteredPcComponents:  PcComponents[];
   private current: number;
   private totalPrice: number;
   private totalPower: number;
@@ -28,11 +30,11 @@ export class ListService {
     this.initState$.next(false);
     this.initSetup();
     this.componentTypeList = [];
-    this.list = [];
     this.current = 0;
     this.totalPrice = 0;
     this.totalPower = 0;
     this.powerSupplied = 0;
+    this.filteredPcComponents = [];
   }
 
   //get current
@@ -46,12 +48,10 @@ export class ListService {
   }
 
   public getTotalPrice(): number{
-    this.calculateTotalPrice();
     return this.totalPrice;
   }
 
   public getTotalPower(): number{
-    this.calculateTotalPower();
     return this.totalPower;
   }
 
@@ -100,11 +100,13 @@ export class ListService {
   // 3. aggiungere il componenti al setup
   public addComponent(component: PcComponents) {
     this.list.push(component);
+    this.calculateTotalPrice();
+    this.calculateTotalPower();
     if (this.list.length === this.componentTypeList.length) {
       this.setupState$.next(false); // va emesso ad esempio come subject
     }
     this.current = this.list.length;
-
+    console.log('list.length:' + this.list.length);
   }
 
   //get components of pcComponents
@@ -142,9 +144,19 @@ export class ListService {
     this.current = this.list.length;
   }
 
-  // 6. esegue lo step 4, aggiunge un componente secondo un algoritmo, e
+  // 6. aggiunge un componente secondo un algoritmo, e
   // passa al successivo
-  public autoComplete() {
-    // vedi codice del creator lato server
+  //typeId contiene l'id del tipo di componente dove l'utente si e' fermato
+  public autoConfig(typeId: number) {
+    let choosenComponent
+    this.getComponents(typeId).subscribe(res => {
+      this.filteredPcComponents = res
+      choosenComponent = this.filteredPcComponents[Math.floor(Math.random() * this.filteredPcComponents.length)];
+      this.addComponent(choosenComponent);
+      console.log(this.getList());
+      if (this.list.length != this.componentTypeList.length) {
+        this.autoConfig(choosenComponent.componentFamily.type.id);
+      }
+    });
   }
 }

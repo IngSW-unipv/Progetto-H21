@@ -8,11 +8,10 @@ import { PcComponents } from "./pc-components-model";
 
 export class Prebuilt{
   public id: number; //Identificativo del PC
-  public name: string; //Nome commerciale del PC
-  public use: string; //Utilizzo finale (casa, gaming, lavoro)
-  public price: number; //Prezzo in euro
-  public pcComponents: PcComponents[]; //Componenti installati
-  public pcComponentsId: number[] = [] ;
-  public imagePathUrl: string; //Immagine del prodotto
+  public name: string;
+  public usage: string; //Utilizzo finale (casa, gaming, lavoro)
+  public totalPrice: number; //Prezzo in euro
+  public componentList: number[]; //Componenti installati
+  public imagePath: string; //Immagine del prodotto
 
 }

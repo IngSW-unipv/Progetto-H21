@@ -1,8 +1,11 @@
 import { HttpClient, HttpHeaders } from "@angular/common/http";
 import { Injectable } from "@angular/core";
 import { Observable, of, Subject, throwError } from "rxjs";
-import { map, catchError, tap} from 'rxjs/operators';
+import { map, catchError, tap, switchMap} from 'rxjs/operators';
+import { ListService } from "src/app/shared/services/list.service";
+import { Image } from "../models/image.model";
 import { Prebuilt } from "../models/prebuilt.model";
+import { ImageService } from "./image.service";
 import { MessageService } from "./message.service";
 
 /**
@@ -17,7 +20,9 @@ export class PrebuiltService{
   private prebuiltUrl: string = 'http://localhost:8080/readySetup'
 
   constructor(private http: HttpClient,
-              private messageService: MessageService) {}
+              private messageService: MessageService,
+              private listService: ListService,
+              private imageService: ImageService) {}
 
   /** GET prebuilts from the server */
   getPrebuilts(): Observable<Prebuilt[]> {
@@ -39,6 +44,7 @@ export class PrebuiltService{
 
   /** POST: add a new prebuilt to the server  */
   addPrebuilt(prebuilt: Prebuilt): Observable<Prebuilt> {
+    console.log(JSON.stringify(prebuilt));
     return this.http.post<Prebuilt>(this.prebuiltUrl, prebuilt).pipe(
       tap((newPrebuilt: Prebuilt) => this.log(`added prebuilt w/ id=${newPrebuilt.id}`)),
       catchError(this.handleError<Prebuilt>('addPrebuilt'))
@@ -48,7 +54,6 @@ export class PrebuiltService{
   /** DELETE: delete the prebuilt from the server */
   deletePrebuilt(id: number): Observable<Prebuilt> {
     const url = `${this.prebuiltUrl}/${id}`;
-
     return this.http.delete<Prebuilt>(url).pipe(
       tap(_ => this.log(`deleted prebuilt id=${id}`)),
       catchError(this.handleError<Prebuilt>('deletePrebuilt'))
@@ -57,11 +62,30 @@ export class PrebuiltService{
 
   /** PUT: update the prebuilt on the server */
   updatePrebuilt(prebuilt: Prebuilt, id: number): Observable<any> {
+    console.log(JSON.stringify(prebuilt));
     const url = `${this.prebuiltUrl}/${id}`;
     return this.http.put(url, prebuilt).pipe(
       tap(_ => this.log(`updated prebuilt id=${prebuilt.id}`)),
       catchError(this.handleError<any>('updatePrebuilt'))
     );
+  }
+
+  save(prebuilt: Prebuilt, image: Image): Observable<Prebuilt>{
+    return this.imageService.addImage(image).pipe(
+      map((fileDownloadUri) => {
+        return {
+          ...prebuilt,
+          imagePath: fileDownloadUri,
+          componentList: this.listService.getList().map((pcComponent) => {
+            return pcComponent.id
+          })
+        }
+      }),
+      switchMap((prebuilt) => this.addPrebuilt(prebuilt)),
+      tap((prebuiltSaved) => {
+        this.log(`saved prebuilt id=${prebuiltSaved.id}`)
+      })
+    )
   }
 
   /**

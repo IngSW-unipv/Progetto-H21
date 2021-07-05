@@ -32,6 +32,7 @@ import { AddCompatibilityComponent } from './products/compatibility/add-compatib
 import { EditCompatibilityComponent } from './products/compatibility/edit-compatibility/edit-compatibility.component';
 import { EditAdminPrebuiltComponent } from './products/admin-prebuilts/edit-admin-prebuilt/edit-admin-prebuilt.component';
 import { AddAdminPrebuiltComponent } from './products/admin-prebuilts/add-admin-prebuilt/add-admin-prebuilt.component';
+import { DetailPrebuiltComponent } from './prebuilts/detail-prebuilt/detail-prebuilt.component';
 
 
 @NgModule({
@@ -65,7 +66,8 @@ import { AddAdminPrebuiltComponent } from './products/admin-prebuilts/add-admin-
     AddCompatibilityComponent,
     EditCompatibilityComponent,
     EditAdminPrebuiltComponent,
-    AddAdminPrebuiltComponent
+    AddAdminPrebuiltComponent,
+    DetailPrebuiltComponent
 
   ],
   imports: [

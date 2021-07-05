@@ -7,7 +7,7 @@ import { Observable, Subscription } from 'rxjs';
 import { ComponentType } from 'src/app/shared/models/component-type.model';
 import { PcComponents } from 'src/app/shared/models/pc-components-model';
 import { CompatibilityService } from 'src/app/shared/services/compatibility.service';
-import { ListService } from 'src/app/list/list.service';
+import { ListService } from 'src/app/shared/services/list.service';
 import { PcComponentsService } from 'src/app/shared/services/pc-components.service';
 
 /**

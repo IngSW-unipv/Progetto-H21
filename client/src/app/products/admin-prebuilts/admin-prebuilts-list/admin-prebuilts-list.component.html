@@ -14,22 +14,23 @@
         <button mat-raised-button
         color="primary"
         style="margin: 5px;"
-        [routerLink]="['/add-prebuilt']"
+        [routerLink]="['/list']"
         >Aggiungi</button>
       </tr>
     </ng-container>
 
+
     <!-- Price Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezzo </th>
-      <td mat-cell *matCellDef="let product"> {{product.price}} </td>
+      <td mat-cell *matCellDef="let product"> {{product.totalPrice}} </td>
       <tr mat-footer-cell *matFooterCellDef></tr>
     </ng-container>
 
     <!-- Usage Column -->
     <ng-container matColumnDef="use">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Uso </th>
-      <td mat-cell *matCellDef="let product"> {{product.use}} </td>
+      <td mat-cell *matCellDef="let product"> {{product.usage}} </td>
       <tr mat-footer-cell *matFooterCellDef></tr>
     </ng-container>
 

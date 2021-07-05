@@ -4,6 +4,7 @@ import { PrebuiltService } from '../../shared/services/prebuilt.service';
 import { Subscription } from 'rxjs';
 import { DialogComponent } from 'src/app/shared/dialog/dialog.component';
 import { MatDialog } from '@angular/material/dialog';
+import { PcComponents } from 'src/app/shared/models/pc-components-model';
 
 /**
  * @author Filippo Casarosa
@@ -15,6 +16,7 @@ import { MatDialog } from '@angular/material/dialog';
 })
 export class PrebuiltsListComponent implements OnInit, OnDestroy {
   loadedPrebuilts: Prebuilt[] = [];
+  prebuilt: Prebuilt;
   isFetching = false;
   error = null;
   private errorSub: Subscription;
@@ -28,6 +30,7 @@ export class PrebuiltsListComponent implements OnInit, OnDestroy {
    * @author Filippo Casarosa
    */
   ngOnInit() {
+    this.prebuilt = new Prebuilt;
     this.errorSub = this.prebuiltService.error.subscribe(
       errorMessage => {
         this.error = errorMessage;
@@ -60,6 +63,13 @@ export class PrebuiltsListComponent implements OnInit, OnDestroy {
    */
   onHandleError(){
     this.error = null;
+  }
+
+  onDetail(): number[]{
+    this.prebuiltService.getPrebuilt(this.loadedPrebuilts[0].id).subscribe((prebuilt) => {
+      this.prebuilt = prebuilt;
+    })
+    return this.prebuilt.componentList
   }
 
   /**

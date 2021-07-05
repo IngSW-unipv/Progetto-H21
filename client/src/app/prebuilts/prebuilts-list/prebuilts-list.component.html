@@ -7,14 +7,15 @@
   <mat-card class="card" *ngFor="let prebuilt of loadedPrebuilts">
     <mat-card-header>
       <div mat-card-avatar class="header-image"></div>
-      <mat-card-title> {{ prebuilt.name }} </mat-card-title>
-      <mat-card-subtitle>Prezzo: {{ prebuilt.price }}$</mat-card-subtitle>
+      <mat-card-title style="text-align: left;"> {{ prebuilt.name }} </mat-card-title>
+      <mat-card-subtitle style="text-align: left;">Prezzo: {{ prebuilt.totalPrice }}$</mat-card-subtitle>
     </mat-card-header>
     <mat-card-content>
-      <img mat-card-image [src]="prebuilt.imagePath" [alt]="prebuilt.name" class="image">
-      <p>Utilizzo: {{ prebuilt.use }}</p>
-      <br>
-      <p>Descrizione: {{ prebuilt.description }}</p>
+      <img mat-card-image [src]="prebuilt.imagePath" [alt]="prebuilt.name" class="image"
+      style="display: block;
+      margin-left: auto;
+      margin-right: auto">
+      <p>Utilizzo: {{ prebuilt.usage }}</p>
     </mat-card-content>
     <!-- Bottone per acquisto PC -->
     <mat-card-actions>
@@ -22,6 +23,10 @@
         color="primary"
         (click)="onPrebuiltSelected()"
       >seleziona</button>
+      <!-- <button mat-raised-button
+      color="primary"
+      (click)="onDetail()"
+      >dettagli</button>-->
     </mat-card-actions>
   </mat-card>
 

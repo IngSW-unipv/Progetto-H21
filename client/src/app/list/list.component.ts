@@ -3,11 +3,12 @@ import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { Subscription } from 'rxjs';
+import { AuthService } from '../auth/auth.service';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 import { ComponentType } from '../shared/models/component-type.model';
 import { PcComponents } from '../shared/models/pc-components-model';
 import { ComponentTypeService } from '../shared/services/component-type.service';
-import { ListService } from './list.service';
+import { ListService } from '../shared/services/list.service';
 
 /**
  * @author Filippo Casarosa
@@ -27,15 +28,19 @@ export class ListComponent implements OnInit, OnDestroy {
   totalPower: number;
   powerSupplied: number;
   enableCompleteButton: boolean;
+  isAuthenticated: boolean;
+  adminSub: Subscription;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
+
 
   constructor(private componentTypeService: ComponentTypeService,
               private listService: ListService,
               private router: Router,
               private dialog: MatDialog,
-              private _snackBar: MatSnackBar) {
+              private _snackBar: MatSnackBar,
+              private authService: AuthService) {
   this.loadedComponentTypes = [];
   this.pcComponents = [];
   this.isFetching = false;
@@ -43,10 +48,13 @@ export class ListComponent implements OnInit, OnDestroy {
   this.totalPower = 0;
   this.powerSupplied = 0;
   this.enableCompleteButton = false;
-
+  this.isAuthenticated = false;
   }
 
   ngOnInit(): void {
+    this.adminSub = this.authService.admin.subscribe(admin => {
+      this.isAuthenticated = !!admin
+    });
     this.fetchComponentType();
     if(this.listService.getList().length >= 1) {
       this.fetchConfiguration();
@@ -58,6 +66,7 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   ngOnDestroy(): void {
     this.errorSub.unsubscribe;
+    this.adminSub.unsubscribe;
   }
 
   /**
@@ -109,15 +118,17 @@ export class ListComponent implements OnInit, OnDestroy {
    */
   fetchConfiguration(){
     this.pcComponents = this.listService.getList();
+    console.log('pcComponents');
+    console.log(this.pcComponents);
     this.totalPrice = this.listService.getTotalPrice();
+    console.log('Get total price');
+    console.log(this.totalPrice);
     this.totalPower =this.listService.getTotalPower();
     console.log('TotalPower');
     console.log(this.totalPower);
     this.powerSupplied = this.listService.getPowerSupplied();
     console.log('Power Supplied');
     console.log(this.powerSupplied);
-    console.log('pcComponents');
-    console.log(this.pcComponents);
   }
 
 
@@ -139,6 +150,23 @@ export class ListComponent implements OnInit, OnDestroy {
       });
     }
   }
+
+  completeConfiguration(){
+    this.listService.autoConfig(this.pcComponents[this.pcComponents.length -1].componentFamily.type.id);
+  }
+
+  // public autoConfig(typeId: number) {
+  //   let choosenComponent: PcComponents
+  //   let filteredPcComponents: PcComponents[]
+  //   this.listService.getComponents(typeId).subscribe(res => {
+  //     filteredPcComponents = res
+  //     choosenComponent = filteredPcComponents[Math.floor(Math.random() * filteredPcComponents.length)];
+  //     this.listService.addComponent(choosenComponent);
+  //     if (this.pcComponents.length != this.loadedComponentTypes.length) {
+  //       this.autoConfig(choosenComponent.componentFamily.type.id);
+  //     }
+  //   });
+  // }
 
   /**
    * apre SnackBar per errore potenza
