@@ -6,9 +6,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 
 /**
- *
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  */
 

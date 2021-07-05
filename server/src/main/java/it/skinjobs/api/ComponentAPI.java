@@ -26,9 +26,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 /**
- *
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  *
  * The REST controller transforms all the methods into web services and the classes into JSON object. The methods define
@@ -110,7 +107,7 @@ public class ComponentAPI extends BaseAPI<Component, ComponentDTO, Integer> {
                component.setComponentFamily(optionalFamily.get());
                return new ResponseEntity<>(components.save(component), HttpStatus.OK);
             } else {
-               return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+               return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
             }
          }
       });
@@ -143,7 +140,7 @@ public class ComponentAPI extends BaseAPI<Component, ComponentDTO, Integer> {
                      return new ResponseEntity<>(components.save(component), HttpStatus.OK);
                   }).orElseGet(() -> null);
                } else {
-                  return new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
+                  return new ResponseEntity<>(null, HttpStatus.BAD_REQUEST);
                }
             }
          });

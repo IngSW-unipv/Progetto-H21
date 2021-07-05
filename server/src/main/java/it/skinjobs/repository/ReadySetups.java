@@ -5,9 +5,6 @@ import org.springframework.data.repository.CrudRepository;
 import it.skinjobs.model.ReadySetup;
 
 /**
- *
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  */
 

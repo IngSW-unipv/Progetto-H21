@@ -8,9 +8,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.JoinColumn;
 
 /**
- *
- * @author Andrei Blindu
- * @author Filippo Maria Rognoni
  * @author Jessica Vecchia
  */
 
