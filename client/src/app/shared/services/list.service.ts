@@ -9,7 +9,7 @@ import { PcComponentsService } from './pc-components.service';
 
 /**
  * @author Filippo Casarosa
- * @author Andrei Casarosa
+ * @author Andrei Blindu
  */
 @Injectable({ providedIn: 'root' })
 export class ListService {
