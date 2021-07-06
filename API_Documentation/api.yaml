@@ -1,0 +1,952 @@
+# 
+# author : Andrei Blindu
+#
+
+swagger: "2.0"
+info:
+  description: "This is the API related to a PC configurator"
+  version: "1.0.0"
+  title: "PC configurator"
+  termsOfService: "http://swagger.io/terms/"
+  contact:
+    email: "andreistefan.blindu01@universitadipavia.it"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+host: "pcconfigurator.swagger.io"
+basePath: "/v2"
+tags:
+- name: "componentType"
+  description: "Component types management"
+- name: "componentFamily"
+  description: "Component families management"
+- name: "component"
+  description: "Component management"
+- name: "compatibilityConstraints"
+  description: "Compatibility constraints management"
+- name: "readySetup"
+  description: "Access to readysetup"
+- name: "credential"
+  description: "Admin credentials"
+- name: "file"
+  description: "File"
+schemes:
+- "https"
+- "http"
+
+paths:
+
+  ## COMPONENT TYPE
+  
+  # getall componentTypes
+  /componentTypes:
+    get:
+      tags:
+      - "componentType"
+      summary: "Get all component types"
+      description: "Get all component types"
+      operationId: "getAllComponentTypes"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ComponentType" #we return an array of componentType
+  
+  # get componentType by componentTypeId
+  /componentTypes/{index}:
+    get:
+      tags:
+      - "componentType"
+      summary: "Get component by Id"
+      description: "Get component by Id"
+      operationId: "getComponentTypesById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "index"  # componentTypeId
+        type: "integer"
+        required: true
+        description: "ComponentId"
+      responses:
+        "200":
+          description: "OK"
+          schema: 
+            type: "object"
+   
+  # - add componentType   --> POST
+  /componentType:
+    post:
+      tags:
+      - "componentType"
+      summary: "Add componentType"
+      description: "Add componentType"
+      operationId: "newComponentType"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Component Type info"
+        required: true
+        schema:
+          $ref: "#/definitions/ComponentType"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+      
+  /componentType/{index}:
+  # - update componentType (dato id e Json con name e description) --> PUT
+    put:
+      tags:
+      - "componentType"
+      summary: "Update a componentType"
+      description: "Update a componentType"
+      operationId: "updateComponentType"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ComponentType id to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+            
+  # - delete componentType  --> DELETE
+    delete:
+      tags:
+      - "componentType"
+      summary: "Delete a componentType"
+      description: "Delete a componentType"
+      operationId: "deleteComponentType"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ComponentType id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            type: "boolean"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+            
+   # - delete all
+  /deleteAll:
+    delete:
+      tags:
+      - "componentType"
+      summary: "Delete all database"
+      description: "Delete all database"
+      operationId: "deleteAll"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"
+        "404":
+          description: "NOT FOUND"
+          schema:
+           type: "boolean"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+            
+   
+  ## COMPONENT FAMILIES 
+         
+  /componentFamilies:
+  # - get allComponentFamilies --> GET
+    get:
+      tags:
+      - "componentFamily"
+      summary: "Get all component families"
+      description: "Get all component families"
+      operationId: "getAllComponentFamilies"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ComponentFamily" #we return an array of componentFamily
+              
+  # get componentFamily by componentFamilyId
+  /componentFamilies/{index}:
+    get:
+      tags:
+      - "componentFamily"
+      summary: "Get componentFamily by Id"
+      description: "Get componentFamily by Id"
+      operationId: "getComponentFamiliesById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "index"  # componentFamilyId
+        type: "integer"
+        required: true
+        description: "ComponentFamilyId"
+      responses:
+        "200":
+          description: "OK"
+          schema: 
+            type: "object"
+              
+  
+  /componentFamily:
+  # - add componentFamily --> POST
+    post:
+      tags:
+      - "componentFamily"
+      summary: "Add componentFamily"
+      description: "Add componentFamily"
+      operationId: "newComponentFamily"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Component Family info"
+        required: true
+        schema:
+          $ref: "#/definitions/ComponentFamily"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+  
+  /componentFamily/{index}:
+    # - update componentFamily (dato id e Json ...) --> PUT
+    put:
+      tags:
+      - "componentFamily"
+      summary: "Update a componentFamily"
+      description: "Update a componentFamily"
+      operationId: "updateComponentFamily"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ComponentFamily id to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+            
+    # - delete componentFamily  --> DELETE
+    delete:
+      tags:
+      - "componentFamily"
+      summary: "Delete a componentFamily"
+      description: "Delete a componentFamily"
+      operationId: "deleteComponentFamily"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ComponentFamily id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            type: "boolean"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+  
+  ## COMPONENT
+  
+  # - get allComponents  --> GET
+  /components:
+    get:
+      tags:
+      - "component"
+      summary: "Get all components"
+      description: "Get all components"
+      operationId: "getAllComponents"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Component" #we return an array of components
+  
+  # get component by componentId
+  /components/{index}:
+    get:
+      tags:
+      - "component"
+      summary: "Get component by componentId"
+      description: "Get component by componentId"
+      operationId: "getComponentsById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "index"  # componentId
+        type: "integer"
+        required: true
+        description: "ComponentId"
+      responses:
+        "200":
+          description: "OK"
+          schema: 
+            type: "object"
+    
+          
+  /component:
+    # - add component  --> POST
+    post:
+      tags:
+      - "component"
+      summary: "Add component"
+      description: "Add component"
+      operationId: "newComponent"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Component info"
+        required: true
+        schema:
+          $ref: "#/definitions/Component"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+    
+  /component/{index}:
+    # - get component (dato type)  --> GET
+    get:
+      tags:
+      - "component"
+      summary: "Get component by typeId"
+      description: "Get component by typeId"
+      operationId: "getAllByType"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "index"  # typeId
+        type: "integer"
+        required: true
+        description: "Component Type Id"
+      responses:
+        "200":
+          description: "successful operation"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Component"  
+  
+    # - update component (dato id e Json)  --> PUT (solo admin)
+    put:
+      tags:
+      - "component"
+      summary: "Updates a component"
+      description: "Updates a component"
+      operationId: "updateComponent"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"  # componentId
+        in: "path"
+        description: "Component id to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+        
+    
+    # - delete component  --> DELETE (solo admin)  
+    delete:
+      tags:
+      - "component"
+      summary: "Deletes a component"
+      description: "Deletes a component"
+      operationId: "deleteComponent"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"  # componentId
+        in: "path"
+        description: "Component to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            type: "boolean"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+  
+  
+  ## COMPATIBILITY CONTRAINTS
+  
+  #get compatibility (dato componente)    --> GET
+  /compatibilityConstraints/getByComponentId/{componentId}:
+    get:
+      tags:
+      - "compatibilityConstraints"
+      summary: "get compatibility given a component"
+      description: "get compatibility given a component"
+      operationId: "getCompatibility"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "componentId"
+        description: "compatibility constraints id"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/Component"
+              #we return an array with all the compatible components
+          
+  /compatibilityConstraints:
+  #  - get CompatibilityConstraints --> GET
+    get:
+      tags:
+      - "compatibilityConstraints"
+      summary: "Get all compatibilities"
+      description: "Get all compatibilities"
+      operationId: "getCompatibilityConstraints"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/CompatibilityConstraint" #we return an array of compatibilityConstraint
+        "400":
+          description: "Invalid status value"
+          
+  /compatibilityConstraints/{index}:
+    get:
+      tags:
+      - "compatibilityConstraints"
+      summary: "Get compatibilityConstraints by Id"
+      description: "Get compatibilityConstraints by Id"
+      operationId: "getcompatibilityConstraintsById"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "path"
+        name: "index"  # compatibilityConstraintsId
+        type: "integer"
+        required: true
+        description: "CompatibilityConstraintsId"
+      responses:
+        "200":
+          description: "OK"
+          schema: 
+            type: "object"
+  
+  /compatibilityConstraint:
+  # - add compatibilityConstraints   --> POST
+    post:
+      tags:
+      - "compatibilityConstraints"
+      summary: "Add CompatibilityConstraint"
+      description: "Add CompatibilityConstraint"
+      operationId: "newCompatibilityConstraint"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Compatibility Model info"
+        required: true
+        schema:
+            $ref: "#/definitions/CompatibilityConstraint"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+          
+  /compatibilityConstraint/{index}:
+  # - updateCompatibityConstraints (dato id)   --> PUT
+    put:
+      tags:
+      - "compatibilityConstraints"
+      summary: "Update a compatibilityConstraint"
+      description: "Updates a compatibilityConstraint"
+      operationId: "updateCompatibilityConstraint"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "CompatibilityConstraint id to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+        
+  # - delete compabilityConstraints  --> DELETE
+    delete:
+      tags:
+      - "compatibilityConstraints"
+      summary: "Delete a compatibility"
+      description: "Delete a compatibility"
+      operationId: "deleteCompatibility"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "Compatibility to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            type: "boolean"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+            
+  ## READYSETUP
+  
+  # get readysetups
+  /readySetups:
+    get:
+      tags:
+      - "readySetup"
+      summary: "Get all ready setups"
+      description: "Get all ready setups"
+      operationId: "getAll"
+      produces:
+      - "application/json"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "array"
+            items:
+              $ref: "#/definitions/ReadySetup"  #we return an array of readysetups
+        "400":
+          description: ""
+  
+  # get readysetup (dato id)
+  /readySetups/{index}:
+    get:
+      tags:
+      - "readySetup"
+      summary: "Get readySetup by Id"
+      description: "Get readySetup by Id"
+      operationId: "getReadySetupById"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ReadySetup Id"
+        required: true
+        type: "integer"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "400":
+          description: "Invalid status value"
+          
+  #add readysetup (solo admin)  --> POST
+  /readySetup:
+    post:
+      tags:
+      - "readySetup"
+      summary: "Add a ReadySetup"
+      description: "Add a ReadySetup"
+      operationId: "newReadySetup"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "ReadySetUp info"
+        required: true
+        schema:
+          $ref: "#/definitions/ReadySetup"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+  
+  /readySetup/{index}:       
+    # - update readysetup (dato id)  --> PUT
+    put:
+      tags:
+      - "readySetup"
+      summary: "Updates a ReadySetup"
+      description: "Updates a ReadySetup"
+      operationId: "updateReadySetup"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ReadySetup id to update"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+   
+    # - delete readysetup (dato id)  --> DELETE
+    delete:
+      tags:
+      - "readySetup"
+      summary: "Deletes a ReadySetup"
+      description: "Deletes a ReadySetup"
+      operationId: "deleteReadySetup"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "index"
+        in: "path"
+        description: "ReadySetup id to delete"
+        required: true
+        type: "integer"
+        format: "int64"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            type: "boolean"
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+          
+  # AUTHENTICATION
+  
+  # - login()       --> POST
+  /login:
+    post:
+      tags:
+      - "credential"
+      summary: "Login into admin account"
+      description: "Login into admin account"
+      operationId: "login"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "Admin login credentials"
+        required: true
+        schema:
+          $ref: "#/definitions/Credential"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"  # we return a session object
+        "403":
+          description: "FORBIDDEN"
+          schema:
+            type: "object"
+        "404":
+          description: "NOT FOUND"
+          schema:
+            type: "object"
+  
+  # - logout --> GET          
+  /logout:
+    get:
+      tags:
+      - "credential"
+      summary: "Logout"
+      description: "Logout"
+      operationId: "logout"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "boolean"  
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "boolean"
+            
+  # FILE
+  /uploadFile:
+    post:
+      tags:
+      - "file"
+      summary: "Upload File"
+      description: "Updload File"
+      operationId: "uploadFile"
+      consumes:
+      - "application/json"
+      produces:
+      - "application/json"
+      parameters:
+      - in: "body"
+        name: "body"
+        description: "file"
+        required: true
+        schema:
+          $ref: "#/definitions/File"
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"  
+        "405":
+          description: "UNAUTHORIZED"
+          schema:
+            type: "object"
+  
+  /downloadFile/{fileName}:
+    get:
+      tags:
+      - "file"
+      summary: "Download File"
+      description: "Download File"
+      operationId: "downloadFile"
+      parameters:
+      - in: "path"
+        name: "fileName"
+        type: "string"
+        description: "File name"
+        required: true
+      responses:
+        "200":
+          description: "OK"
+          schema:
+            type: "object"
+      
+
+definitions:
+  ComponentType:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: "cpu"
+      description:
+        type: "string"
+        example: "intel"
+  ComponentFamily:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: ""
+      type:
+        $ref: "#/definitions/ComponentType"
+  Component:
+    type: "object"
+    required:
+    - "name"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+        example: ""
+      family:
+        $ref: "#/definitions/ComponentFamily"
+  CompatibilityConstraint:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      idf1:
+        type: "integer"
+        format: "int64"
+      idf2:
+        type: "integer"
+        format: "int64"
+  ReadySetup:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      name:
+        type: "string"
+      components: 
+        type: "array"
+        items: 
+          $ref: "#/definitions/Component"
+  Credential:
+    type: "object"
+    properties:
+      userName: 
+        type: "string"
+        example: "admin"
+      password:
+        type: "string"
+        example: "admin"
+  File:
+    type: "object"
+    
+externalDocs:
+  description: "Find out more about Swagger"
+  url: "http://swagger.io"
