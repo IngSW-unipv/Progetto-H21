@@ -1,6 +1,7 @@
 package it.skinjobs.api;
 
 import java.time.Instant;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -109,19 +110,65 @@ public class CredentialApiTest {
             .andExpect(jsonPath("$.credential.name", is("admin")));
     }
 
+    @Test
+    public void testLoginNotFound() throws Exception {
+        this.credentialDTO = new CredentialDTO();
+        this.credentialDTO.setName("Pippo");
+        this.credentialDTO.setPassword("admin");
+
+        Mockito.when(credentials.findByName(anyString())).thenReturn(new ArrayList<Credential>());
+        
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/login")
+        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+        .content(this.mapper.writeValueAsString(this.credentialDTO));
+
+        mockMvc.perform(request)
+            .andExpect(status().isNotFound());
+    }
 
     @Test
-    public void testSessionIsNotValid() {
+    public void testLoginFail() throws Exception {
+        this.credentialDTO = new CredentialDTO();
+        this.credentialDTO.setName("admin");
+        this.credentialDTO.setPassword("Paperino");
+        this.credentialList = new ArrayList<>();
+        this.credentialList.add(new Credential());
+        this.credentialList.get(0).setName("admin");
+        this.credentialList.get(0).setPassword("admin");
+
+        Mockito.when(credentials.findByName(anyString())).thenReturn(credentialList);
+        
+
+        MockHttpServletRequestBuilder request = MockMvcRequestBuilders.post("/login")
+        .contentType(MediaType.APPLICATION_JSON).accept(MediaType.APPLICATION_JSON)
+        .content(this.mapper.writeValueAsString(this.credentialDTO));
+
+        mockMvc.perform(request)
+            .andExpect(status().isForbidden());
+    }
+
+    @Test
+    public void testSessionIsValid() {
         Session session = new Session();
-        session.setId(1);
-        session.setCredential(this.saved);
-        session.setNowExpired();
         session.setToken("123");
+        Instant time = Instant.now();
+        Instant future = time.plus(1, ChronoUnit.MINUTES);
+        Date date = Date.from(future);
+        session.setExpireDate(date);
+        long diff = session.getExpireDate().getTime() - date.getTime();
+        assertEquals(true, diff == 0);
         this.sessionList = new ArrayList<>();
         this.sessionList.add(session);
         Mockito.when(sessions.findByToken(anyString())).thenReturn(sessionList);
-        assertEquals(true, session.isExpired());
-        Mockito.when(credentialAPI.renewSession(session)).thenReturn(null);
+        assertEquals(true, this.credentialAPI.sessionIsValid("123"));
+        diff = session.getExpireDate().getTime() - date.getTime();
+        assertEquals(true, diff > 1700000);
+    }
 
+    @Test
+    public void testSessionIsNotValid() {
+        Mockito.when(sessions.findByToken(anyString())).thenReturn(new ArrayList<Session>());
+        assertEquals(false, this.credentialAPI.sessionIsValid("421"));
+      
     }
 }

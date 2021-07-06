@@ -175,7 +175,9 @@ public class ComponentAPI extends BaseAPI<Component, ComponentDTO, Integer> {
    }
 
    /**
-    * @param index
+    * @author Andrei Blindu
+    * @author Jessica Vecchia
+    * @param familyId
     * @return Booolean
     */
    @Override

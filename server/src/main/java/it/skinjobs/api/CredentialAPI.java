@@ -21,8 +21,8 @@ import it.skinjobs.repository.Sessions;
 import it.skinjobs.utils.CredentialsProperties;
 
 /**
- * @Author Jessica Vecchia
- * This class contains all the methods related to the session creation and end.
+ * @Author Jessica Vecchia This class contains all the methods related to the
+ *         session creation and end.
  */
 @RestController
 public class CredentialAPI {
@@ -44,27 +44,28 @@ public class CredentialAPI {
      */
     @Autowired
     public CredentialAPI(Credentials credentials, CredentialsProperties credentialsProperties) {
-       String name = credentialsProperties.getName();
-       try {
-       if (credentials.findByName(name).size() == 0) {
-         String password = credentialsProperties.getPassword();
-         Credential credential = new Credential();
-         credential.setName(name);
-         credential.setPassword(password);
-         this.adminCredential = credentials.save(credential);
-       }
-      } catch (Exception e) {
-         System.out.println(e.getMessage());
-      }
+        String name = credentialsProperties.getName();
+        try {
+            if (credentials.findByName(name).size() == 0) {
+                String password = credentialsProperties.getPassword();
+                Credential credential = new Credential();
+                credential.setName(name);
+                credential.setPassword(password);
+                this.adminCredential = credentials.save(credential);
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
     }
 
     /**
      *
      * @param credentialDTO
-     * @return Response Entity<Session>
-     *  The login Api is a Post method because it creates a session and saves on DB.
-     *  First of all, credentials are found by input name. Then the password for those credentials is
-     *  checked and if everything is ok, the session is created and saved on DB (it lasts 30 minutes).
+     * @return Response Entity<Session> The login Api is a Post method because it
+     *         creates a session and saves on DB. First of all, credentials are
+     *         found by input name. Then the password for those credentials is
+     *         checked and if everything is ok, the session is created and saved on
+     *         DB (it lasts 30 minutes).
      */
     @CrossOrigin(origins = "*")
     @PostMapping("/login")
@@ -87,8 +88,8 @@ public class CredentialAPI {
     /**
      *
      * @param session
-     * @return Session
-     * this method renews the sessions letting it last 30 minutes more.
+     * @return Session this method renews the sessions letting it last 30 minutes
+     *         more.
      */
     public Session renewSession(Session session) {
         session.renewSession();
@@ -98,19 +99,19 @@ public class CredentialAPI {
     /**
      *
      * @param token
-     * @return Boolean
-     * This method checks if a session is valid and if yes, it renews it. (This check is
-     * done each time the admin has to perform an action on DB and it means that for each admin
-     * operation the session is renewed and lasts 30 minutes more.
+     * @return Boolean This method checks if a session is valid and if yes, it
+     *         renews it. (This check is done each time the admin has to perform an
+     *         action on DB and it means that for each admin operation the session
+     *         is renewed and lasts 30 minutes more.
      */
     public Boolean sessionIsValid(String token) {
         List<Session> sessionList = this.sessions.findByToken(token);
         Boolean result = false;
-        for (Session session : sessionList) {
+        if (sessionList.size() > 0) {
+            Session session = sessionList.get(0);
             if (!session.isExpired()) {
                 result = true;
                 this.renewSession(session);
-                break;
             }
         }
         return result;
@@ -119,10 +120,9 @@ public class CredentialAPI {
     /**
      *
      * @param headers
-     * @return ResponseEntity<Session>
-     *     This Api first finds a session by token and then checks the its validity.
-     *     If the session is valid, then the expiration date is modified and set to 1 second
-     *     before now.
+     * @return ResponseEntity<Session> This Api first finds a session by token and
+     *         then checks the its validity. If the session is valid, then the
+     *         expiration date is modified and set to 1 second before now.
      */
     @CrossOrigin(origins = "*")
     @GetMapping("/logout")
@@ -133,11 +133,10 @@ public class CredentialAPI {
             return new ResponseEntity<>(null, HttpStatus.UNAUTHORIZED);
         }
         Session result = sessionList.get(0);
-       
-            result.setNowExpired();
-            sessions.save(result);
-            return new ResponseEntity<>(true, HttpStatus.OK);
-    } 
-    
+
+        result.setNowExpired();
+        sessions.save(result);
+        return new ResponseEntity<>(true, HttpStatus.OK);
+    }
 
 }

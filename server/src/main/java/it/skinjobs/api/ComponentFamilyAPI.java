@@ -157,6 +157,8 @@ public class ComponentFamilyAPI extends BaseAPI<ComponentFamily, ComponentFamily
     }
 
     /**
+     * @author Andrei Blindu
+     * @author Jessica Vecchia
      * @param  familyId
      * @return Boolean
      */

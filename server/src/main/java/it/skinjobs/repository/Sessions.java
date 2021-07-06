@@ -16,6 +16,6 @@ import it.skinjobs.model.Session;
  * for the related token saved within the DB.
  */
 public interface Sessions extends CrudRepository<Session, Integer>{
-    @Query("FROM Session WHERE token = ?1")
+    @Query("FROM Session s WHERE token = ?1 order by s.expireDate desc")
     List<Session> findByToken(String token);
 }

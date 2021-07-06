@@ -35,3 +35,4 @@ bin/
 files
 
 .DS_Store
+.vscode

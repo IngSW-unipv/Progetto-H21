@@ -1,7 +1,5 @@
 package it.skinjobs.dto;
-/**
- * @author Jessica Vecchia
- */
+
 public class UploadFileResponse {
    private String fileName;
    private String fileDownloadUri;
