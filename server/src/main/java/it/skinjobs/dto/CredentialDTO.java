@@ -1,3 +1,7 @@
+/**
+@author Jessica Vecchia
+ */
+
 package it.skinjobs.dto;
 
 public class CredentialDTO {

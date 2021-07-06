@@ -1,3 +1,6 @@
+/**
+@author Jessica Vecchia
+ */
 package it.skinjobs.api;
 
 import java.time.Instant;

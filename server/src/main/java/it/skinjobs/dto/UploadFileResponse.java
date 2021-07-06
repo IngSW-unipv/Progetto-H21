@@ -1,3 +1,4 @@
+
 package it.skinjobs.dto;
 
 public class UploadFileResponse {

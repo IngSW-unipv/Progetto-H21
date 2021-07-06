@@ -1,3 +1,7 @@
+/**
+@author Jessica Vecchia
+@author Andrei Blindu
+ */
 package it.skinjobs.api;
 
 import java.util.ArrayList;
