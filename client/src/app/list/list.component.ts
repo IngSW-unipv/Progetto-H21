@@ -30,6 +30,7 @@ export class ListComponent implements OnInit, OnDestroy {
   enableCompleteButton: boolean;
   isAuthenticated: boolean;
   adminSub: Subscription;
+  isFirst: boolean;
 
   horizontalPosition: MatSnackBarHorizontalPosition = 'center';
   verticalPosition: MatSnackBarVerticalPosition = 'top';
@@ -49,6 +50,7 @@ export class ListComponent implements OnInit, OnDestroy {
   this.powerSupplied = 0;
   this.enableCompleteButton = false;
   this.isAuthenticated = false;
+  this.isFirst = false;
   }
 
   ngOnInit(): void {
@@ -57,7 +59,11 @@ export class ListComponent implements OnInit, OnDestroy {
     });
     this.fetchComponentType();
     if(this.listService.getList().length >= 1) {
+      this.isFirst = false;
       this.fetchConfiguration();
+    }
+    else{
+      this.isFirst = true;
     }
   }
   /**
@@ -153,20 +159,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   completeConfiguration(){
     this.listService.autoConfig(this.pcComponents[this.pcComponents.length -1].componentFamily.type.id);
+    this.router.navigate(['/list']);
   }
-
-  // public autoConfig(typeId: number) {
-  //   let choosenComponent: PcComponents
-  //   let filteredPcComponents: PcComponents[]
-  //   this.listService.getComponents(typeId).subscribe(res => {
-  //     filteredPcComponents = res
-  //     choosenComponent = filteredPcComponents[Math.floor(Math.random() * filteredPcComponents.length)];
-  //     this.listService.addComponent(choosenComponent);
-  //     if (this.pcComponents.length != this.loadedComponentTypes.length) {
-  //       this.autoConfig(choosenComponent.componentFamily.type.id);
-  //     }
-  //   });
-  // }
 
   /**
    * apre SnackBar per errore potenza

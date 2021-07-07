@@ -23,7 +23,7 @@
     <!-- Price Column -->
     <ng-container matColumnDef="price">
       <th mat-header-cell *matHeaderCellDef mat-sort-header> Prezzo </th>
-      <td mat-cell *matCellDef="let product"> {{product.totalPrice}} </td>
+      <td mat-cell *matCellDef="let product"> {{product.totalPrice |  number : '1.2-2'}} </td>
       <tr mat-footer-cell *matFooterCellDef></tr>
     </ng-container>
 

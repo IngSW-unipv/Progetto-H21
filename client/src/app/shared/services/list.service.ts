@@ -15,7 +15,6 @@ import { PcComponentsService } from './pc-components.service';
 export class ListService {
   private list: PcComponents[];
   private componentTypeList: ComponentType[];
-  private filteredPcComponents:  PcComponents[];
   private current: number;
   private totalPrice: number;
   private totalPower: number;
@@ -34,7 +33,6 @@ export class ListService {
     this.totalPrice = 0;
     this.totalPower = 0;
     this.powerSupplied = 0;
-    this.filteredPcComponents = [];
   }
 
   //get current
@@ -148,10 +146,9 @@ export class ListService {
   // passa al successivo
   //typeId contiene l'id del tipo di componente dove l'utente si e' fermato
   public autoConfig(typeId: number) {
-    let choosenComponent
     this.getComponents(typeId).subscribe(res => {
-      this.filteredPcComponents = res
-      choosenComponent = this.filteredPcComponents[Math.floor(Math.random() * this.filteredPcComponents.length)];
+      const filteredPcComponents: PcComponents[] = res
+      const choosenComponent: PcComponents = filteredPcComponents[Math.floor(Math.random() * filteredPcComponents.length)];
       this.addComponent(choosenComponent);
       console.log(this.getList());
       if (this.list.length != this.componentTypeList.length) {

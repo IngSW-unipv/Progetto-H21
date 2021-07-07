@@ -2,40 +2,45 @@
 <p *ngIf="loadedPrebuilts.length < 1 && !isFetching">No Prebuilts available!</p>
 
 <!-- Caso in cui ci sono preassemblati disponibili -->
-<div *ngIf="loadedPrebuilts.length >= 1">
-  <!-- Vengono generate delle card che mostrano nome, prezzo, uso e descrizione del PC -->
-  <mat-card class="card" *ngFor="let prebuilt of loadedPrebuilts">
-    <mat-card-header>
-      <div mat-card-avatar class="header-image"></div>
-      <mat-card-title style="text-align: left;"> {{ prebuilt.name }} </mat-card-title>
-      <mat-card-subtitle style="text-align: left;">Prezzo: {{ prebuilt.totalPrice }}$</mat-card-subtitle>
-    </mat-card-header>
-    <mat-card-content>
-      <img mat-card-image [src]="prebuilt.imagePath" [alt]="prebuilt.name" class="image"
-      style="display: block;
-      margin-left: auto;
-      margin-right: auto">
-      <p>Utilizzo: {{ prebuilt.usage }}</p>
-    </mat-card-content>
-    <!-- Bottone per acquisto PC -->
-    <mat-card-actions>
-      <button mat-raised-button
+  <div *ngIf="loadedPrebuilts.length >= 1">
+    <!-- Vengono generate delle card che mostrano nome, prezzo, uso e descrizione del PC -->
+    <div fxLayout="row wrap" fxLayoutGap="35px grid">
+    <mat-card class="card" *ngFor="let prebuilt of loadedPrebuilts">
+      <mat-card-header>
+        <div mat-card-avatar class="header-image"></div>
+        <mat-card-title style="text-align: center;"> {{ prebuilt.name }} </mat-card-title>
+        <mat-card-subtitle style="text-align: center;">Prezzo: {{ prebuilt.totalPrice }}$</mat-card-subtitle>
+      </mat-card-header>
+      <mat-card-content>
+        <img mat-card-image [src]="prebuilt.imagePath" [alt]="prebuilt.name" class="image"
+        style="display: block;
+        margin-left: auto;
+        margin-right: auto">
+        <p style="text-align: center;">Utilizzo: {{ prebuilt.usage }}</p>
+      </mat-card-content>
+      <!-- Bottone per acquisto PC -->
+      <mat-card-actions>
+        <button mat-raised-button
+          style="margin: 15px;"
+          color="warn"
+          (click)="onPrebuiltSelected()"
+          mat-fab
+        ><mat-icon>favorite</mat-icon>
+        </button>
+        <!-- <button mat-raised-button
         color="primary"
-        (click)="onPrebuiltSelected()"
-      >seleziona</button>
-      <!-- <button mat-raised-button
-      color="primary"
-      (click)="onDetail()"
-      >dettagli</button>-->
-    </mat-card-actions>
-  </mat-card>
+        (click)="onDetail()"
+        >dettagli</button>-->
+      </mat-card-actions>
+    </mat-card>
 
-  <!-- Template di errore -->
-  <p *ngIf="isFetching && !error">Loading...</p>
-  <div class="alert alert-danger" *ngIf="error">
-    <h1>An Error Occured</h1>
-    <p>{{ error }}</p>
-    <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+    <!-- Template di errore -->
+    <p *ngIf="isFetching && !error">Loading...</p>
+    <div class="alert alert-danger" *ngIf="error">
+      <h1>An Error Occured</h1>
+      <p>{{ error }}</p>
+      <button class="btn btn-danger" (click)="onHandleError()">Okay</button>
+    </div>
   </div>
-</div>
+  </div>
 

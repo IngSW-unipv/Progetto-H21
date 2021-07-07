@@ -13,6 +13,7 @@
           color="accent"
           (click)="completeConfiguration()"
           *ngIf="componentType.active"
+          [disabled]="isFirst === true"
           >Finisci per me
         </button>
       </ng-container>
@@ -44,7 +45,7 @@
             <h2><b>Costo Totale</b></h2>
           </td>
           <td>
-            <h2>{{ totalPrice }} $</h2>
+            <h2>{{ totalPrice |  number : '1.2-2'}} $</h2>
           </td>
         </tr>
         </tfoot>

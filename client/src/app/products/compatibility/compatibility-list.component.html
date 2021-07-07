@@ -28,12 +28,12 @@
   <ng-container matColumnDef="actions">
     <th mat-header-cell *matHeaderCellDef></th>
     <td mat-cell *matCellDef="let product">
-      <button
+      <!-- <button
         mat-fab color="accent"
         style="margin: 5px;"
         [routerLink]="['/edit-compatibility', product.id]"
         ><mat-icon>more_vert</mat-icon>
-      </button>
+      </button> -->
       <button
         mat-fab color="warn"
         (click)="delCompatibility(product.id)"
