@@ -2,7 +2,7 @@ import { AfterViewInit, Component, OnDestroy, OnInit} from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { MatSnackBar, MatSnackBarHorizontalPosition, MatSnackBarVerticalPosition } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { Subscription } from 'rxjs';
+import { Subscription, timer } from 'rxjs';
 import { AuthService } from '../auth/auth.service';
 import { DialogComponent } from '../shared/dialog/dialog.component';
 import { ComponentType } from '../shared/models/component-type.model';
@@ -159,7 +159,15 @@ export class ListComponent implements OnInit, OnDestroy {
 
   completeConfiguration(){
     this.listService.autoConfig(this.pcComponents[this.pcComponents.length -1].componentFamily.type.id);
-    this.router.navigate(['/list']);
+    let time = timer(200, 200);
+    time.subscribe(() => {
+      this.fetchComponentType();
+      this.totalPrice = this.listService.getTotalPrice();
+      this.totalPower =this.listService.getTotalPower();
+      this.powerSupplied = this.listService.getPowerSupplied();
+    });
+    // this.router.navigate(['/prebuilts']);
+    // this.router.navigate(['/list']);
   }
 
   /**

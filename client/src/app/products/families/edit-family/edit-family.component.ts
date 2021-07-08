@@ -19,6 +19,7 @@ export class EditFamilyComponent implements OnInit {
   isFetching = false;
   error = null;
   private errorSub: Subscription;
+  saveComplete: boolean;
 
   @ViewChild('f', { static: false }) updateForm: NgForm;
 
@@ -28,13 +29,15 @@ export class EditFamilyComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPcComponent();
+    this.saveComplete = false;
   }
 
   onUpdateFamily() {
     this.loadedFamily.name = this.updateForm.value.name;
     this.loadedFamily.typeId = this.updateForm.value.typeId;
     this.familyService.updateFamily(this.loadedFamily, this.loadedFamily.id).subscribe();
-    this.router.navigate(['/products/family'], {relativeTo: this.route});
+    this.saveComplete = true;
+    // this.router.navigate(['/products/family'], {relativeTo: this.route});
   }
 
   fetchPcComponent(){

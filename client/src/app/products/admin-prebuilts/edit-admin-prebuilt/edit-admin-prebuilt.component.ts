@@ -19,6 +19,7 @@ export class EditAdminPrebuiltComponent implements OnInit {
   isFetching = false;
   error = null;
   private errorSub: Subscription;
+  saveComplete: boolean;
 
   @ViewChild('f', { static: false }) updateForm: NgForm;
 
@@ -30,6 +31,7 @@ export class EditAdminPrebuiltComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPrebuilt();
+    this.saveComplete = false;
   }
 
   onUpdatePrebuilt() {
@@ -40,7 +42,8 @@ export class EditAdminPrebuiltComponent implements OnInit {
       return pcComponent.id
     })
     this.prebuiltService.updatePrebuilt(this.loadedPrebuilt, this.loadedPrebuilt.id).subscribe();
-    this.router.navigate(['/products/admin-prebuilts'], {relativeTo: this.route});
+    this.saveComplete= true;
+    // this.router.navigate(['/products/admin-prebuilts'], {relativeTo: this.route});
   }
 
   fetchPrebuilt(){

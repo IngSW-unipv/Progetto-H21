@@ -19,6 +19,7 @@ export class EditPcComponentComponent implements OnInit {
   isFetching = false;
   error = null;
   private errorSub: Subscription;
+  saveComplete: boolean;
 
   @ViewChild('f', { static: false }) updateForm: NgForm;
 
@@ -28,6 +29,7 @@ export class EditPcComponentComponent implements OnInit {
 
   ngOnInit(): void {
     this.fetchPcComponent();
+    this.saveComplete = false;
   }
 
   onUpdateComponent() {
@@ -36,7 +38,9 @@ export class EditPcComponentComponent implements OnInit {
     this.loadedPcComponent.power = this.updateForm.value.power;
     this.loadedPcComponent.familyId = this.updateForm.value.familyId;
     this.pcComponentService.updatePcComponent(this.loadedPcComponent, this.loadedPcComponent.id).subscribe();
-    this.router.navigate(['/products/pc-components'], {relativeTo: this.route});
+    this.saveComplete = true;
+    // this.router.navigate(['/products/pc-components'], {relativeTo: this.route});
+    // window.location.reload();
   }
 
   fetchPcComponent(){
